@@ -165,7 +165,7 @@ class CreateView extends StatelessWidget {
                 const SizedBox(height: 10),
                 // Sign up button
                 ButtonGlobal(
-                  onPressed: () async {
+                  onPressed: () {
                     if (nameController.text.isNotEmpty &&
                         emailController.text.isNotEmpty &&
                         passwordController.text.isNotEmpty &&
@@ -174,8 +174,8 @@ class CreateView extends StatelessWidget {
                     } else {
                       // Show password mismatch error
                       ScaffoldMessenger.of(context).showSnackBar(
-                        SnackBar(
-                          content: Text('Password does not match'),
+                        const SnackBar(
+                          content: Text('Password does not matchs'),
                         ),
                       );
                     }
