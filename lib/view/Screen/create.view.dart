@@ -9,13 +9,12 @@ import 'login.view.dart';
 class CreateView extends StatelessWidget {
   final http.Client httpClient = http.Client();
 
-  CreateView({required Key key}) : super(key: key);
+  CreateView({super.key});
 
   final TextEditingController nameController = TextEditingController();
   final TextEditingController emailController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
-  final TextEditingController confirmPasswordController =
-      TextEditingController();
+  final TextEditingController confirmPasswordController = TextEditingController();
 
   Future<void> sendDataToServer(BuildContext context) async {
     const url = 'http://localhost:4500/users';
@@ -37,15 +36,11 @@ class CreateView extends StatelessWidget {
       if (response.statusCode == 200) {
         // Handle successful response
         print('Data sent successfully');
-        
+
         // Parse the response body
-        final responseData = json.decode(response.body);
-        
-        // Check if registration was successful
-        if (responseData['success'] == true) {
-          // Show registration success message
+        if (context.mounted) {
           ScaffoldMessenger.of(context).showSnackBar(
-            SnackBar(
+            const SnackBar(
               content: Text('Registration successful'),
             ),
           );
@@ -54,13 +49,6 @@ class CreateView extends StatelessWidget {
           Navigator.pushReplacement(
             context,
             MaterialPageRoute(builder: (context) => LoginView()),
-          );
-        } else {
-          // Show error message
-          ScaffoldMessenger.of(context).showSnackBar(
-            SnackBar(
-              content: Text(responseData['message'] ?? 'Registration failed'),
-            ),
           );
         }
       } else {
@@ -131,7 +119,7 @@ class CreateView extends StatelessWidget {
                   validator: (value) {
                     return;
                   },
-                ),                
+                ),
                 const SizedBox(height: 10),
                 // Email input
                 TextFormGlobal(
@@ -178,9 +166,10 @@ class CreateView extends StatelessWidget {
                 // Sign up button
                 ButtonGlobal(
                   onPressed: () async {
-                    if (passwordController.text ==
-                        confirmPasswordController.text) {
-                      // Add your sign-up logic here
+                    if (nameController.text.isNotEmpty &&
+                        emailController.text.isNotEmpty &&
+                        passwordController.text.isNotEmpty &&
+                        confirmPasswordController.text.contains(passwordController.text)) {
                       sendDataToServer(context); // Call function to save data to database
                     } else {
                       // Show password mismatch error
@@ -191,7 +180,9 @@ class CreateView extends StatelessWidget {
                       );
                     }
                   },
-                  text: 'Sign Up', btnColor: GlobalColors.mainColor, txtColor: GlobalColors.mainColor,
+                  text: 'Sign Up',
+                  btnColor: GlobalColors.mainColor,
+                  txtColor: GlobalColors.mainColor,
                 ),
               ],
             ),
@@ -212,16 +203,11 @@ class CreateView extends StatelessWidget {
             InkWell(
               onTap: () {
                 // Navigate to login page
-                Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                        builder: (context) => LoginView()));
+                Navigator.push(context, MaterialPageRoute(builder: (context) => LoginView()));
               },
               child: Text(
                 'Login',
-                style: TextStyle(
-                    color: GlobalColors.mainColor,
-                    fontWeight: FontWeight.bold),
+                style: TextStyle(color: GlobalColors.mainColor, fontWeight: FontWeight.bold),
               ),
             ),
           ],
