@@ -36,9 +36,8 @@ class LoginView extends StatelessWidget {
 
         // Parse the response body
         final responseData = json.decode(response.body);
-
+        print(responseData);
         // Check if login was successful
-        if (responseData['success'] == true) {
           // Show login success message
           ScaffoldMessenger.of(context).showSnackBar(
             const SnackBar(
@@ -48,15 +47,8 @@ class LoginView extends StatelessWidget {
 
         Get.offAll(() => const Home());
 
-        } else {
           // Show error message for unsuccessful login
-          ScaffoldMessenger.of(context).showSnackBar(
-            const SnackBar(
-              content: Text('Login failed. Please check your credentials.'),
-            ),
-          );
-        }
-      } else {
+        } else {
         // Show error message for unsuccessful request
         ScaffoldMessenger.of(context).showSnackBar(
           const SnackBar(
