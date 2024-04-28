@@ -8,10 +8,13 @@ import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
 import 'create.view.dart';
 import 'home_screen.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class LoginView extends StatelessWidget {
-  LoginView({super.key, });
-
+  LoginView({
+    super.key,
+  });
+  final Future<SharedPreferences> _prefs = SharedPreferences.getInstance();
   final TextEditingController emailController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
 
@@ -37,22 +40,26 @@ class LoginView extends StatelessWidget {
         // Parse the response body
         final responseData = json.decode(response.body);
         print(responseData);
+        _prefs.then((value) {
+          value.setString("token", responseData['accessToken']);
+        });
         // Check if login was successful
-          // Show login success message
-          ScaffoldMessenger.of(context).showSnackBar(
-            const SnackBar(
-              content: Text('Login successful'),
-            ),
-          );
+        // Show login success message
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(
+            content: Text('Login successful'),
+          ),
+        );
 
         Get.offAll(() => const Home());
 
-          // Show error message for unsuccessful login
-        } else {
+        // Show error message for unsuccessful login
+      } else {
         // Show error message for unsuccessful request
         ScaffoldMessenger.of(context).showSnackBar(
           const SnackBar(
-            content: Text('Failed to send data to server. Please try again later.'),
+            content:
+                Text('Failed to send data to server. Please try again later.'),
           ),
         );
       }
@@ -166,12 +173,14 @@ class LoginView extends StatelessWidget {
                 // Navigate to CreateView when Sign Up is tapped
                 Navigator.push(
                   context,
-                  MaterialPageRoute(builder: (context) => CreateView(key: const Key(''))),
+                  MaterialPageRoute(
+                      builder: (context) => CreateView(key: const Key(''))),
                 );
               },
               child: Text(
                 'Sign Up',
-                style: TextStyle(color: GlobalColors.mainColor, fontWeight: FontWeight.bold),
+                style: TextStyle(
+                    color: GlobalColors.mainColor, fontWeight: FontWeight.bold),
               ),
             ),
           ],
