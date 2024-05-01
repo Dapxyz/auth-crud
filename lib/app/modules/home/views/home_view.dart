@@ -30,7 +30,7 @@ class HomeView extends GetView<HomeController> {
         children: [
           const SizedBox(height: 10), // Adding space between AppBar and Welcome text
           Text(
-            'Login, as Daptzy',
+            'Login, as ${controller.name.value}',
             style: TextStyle(
               color: GlobalColors.mainColor,
               fontSize: 15,
