@@ -1,29 +1,30 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart'; // Import package for SVG
-import 'package:get/get.dart'; // Import GetX package
-import 'package:flutter_auth/view/Screen/global.colors.dart';
-import 'package:flutter_auth/view/Screen/login.view.dart';
+import 'package:flutter_svg/svg.dart';
 
-class SplashView extends StatelessWidget {
-  const SplashView({Key? key});
+import 'package:get/get.dart';
+
+import '../../../constant/global.colors.dart';
+import '../controllers/splash_screen_controller.dart';
+
+class SplashScreenView extends GetView<SplashScreenController> {
+  SplashScreenView({super.key});
 
   @override
+  final controller = Get.find<SplashScreenController>();
+  @override
   Widget build(BuildContext context) {
-    Future.delayed(const Duration(seconds: 3), () {
-      Get.to(LoginView(key: super.key,)); 
-    });
     return Scaffold(
-      backgroundColor: GlobalColors.mainColor, 
+      backgroundColor: GlobalColors.mainColor,
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             SvgPicture.asset(
               'assets/images/anonymous.svg',
-              width: 100, 
+              width: 100,
               height: 100,
             ),
-            const SizedBox(height: 10), 
+            const SizedBox(height: 10),
             const Text(
               'DAP-X',
               style: TextStyle(
