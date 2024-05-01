@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_auth/view/Screen/global.colors.dart';
+import 'package:flutter_auth/app/constant/global.colors.dart';
 import 'dart:io';
 import 'package:image_picker/image_picker.dart';
 
@@ -8,8 +8,7 @@ class CRUDPage extends StatefulWidget {
   _CRUDPageState createState() => _CRUDPageState();
 }
 
-class _CRUDPageState extends State
-{
+class _CRUDPageState extends State {
   final List<Map<String, dynamic>> _items = [];
 
   void _addItem() {
@@ -60,25 +59,25 @@ class _CRUDPageState extends State
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(
+        title: const Text(
           'DAP-X CRUD PAGE',
           style: TextStyle(color: Colors.white),
         ),
         backgroundColor: GlobalColors.mainColor,
-        iconTheme: IconThemeData(color: Colors.white),
+        iconTheme: const IconThemeData(color: Colors.white),
       ),
       body: ListView.builder(
         itemCount: _items.length,
         itemBuilder: (context, index) {
           return Column(
             children: [
-              SizedBox(height: 20),
+              const SizedBox(height: 20),
               TextFormField(
                 initialValue: _items[index]['name'],
                 decoration: InputDecoration(
                   labelText: 'Name',
                   hintText: 'Enter your name',
-                  icon: Icon(Icons.person),
+                  icon: const Icon(Icons.person),
                   border: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(10.0),
                   ),
@@ -87,7 +86,7 @@ class _CRUDPageState extends State
                   _items[index]['name'] = value;
                 },
               ),
-              SizedBox(height: 10),
+              const SizedBox(height: 10),
               TextFormField(
                 initialValue: _items[index]['address'],
                 decoration: InputDecoration(
@@ -102,13 +101,13 @@ class _CRUDPageState extends State
                   _items[index]['address'] = value;
                 },
               ),
-              SizedBox(height: 10),
+              const SizedBox(height: 10),
               TextFormField(
                 initialValue: _items[index]['city'],
                 decoration: InputDecoration(
                   labelText: 'City',
                   hintText: 'Enter your city',
-                  icon: Icon(Icons.location_city),
+                  icon: const Icon(Icons.location_city),
                   border: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(10.0),
                   ),
@@ -117,13 +116,13 @@ class _CRUDPageState extends State
                   _items[index]['city'] = value;
                 },
               ),
-              SizedBox(height: 10),
+              const SizedBox(height: 10),
               TextFormField(
                 initialValue: _items[index]['hobby'],
                 decoration: InputDecoration(
                   labelText: 'Hobby',
                   hintText: 'Enter your hobby',
-                  icon: Icon(Icons.sports),
+                  icon: const Icon(Icons.sports),
                   border: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(10.0),
                   ),
@@ -132,7 +131,7 @@ class _CRUDPageState extends State
                   _items[index]['hobby'] = value;
                 },
               ),
-              SizedBox(height: 10),
+              const SizedBox(height: 10),
               TextFormField(
                 initialValue: _items[index]['religion'],
                 decoration: InputDecoration(
@@ -147,7 +146,7 @@ class _CRUDPageState extends State
                   _items[index]['religion'] = value;
                 },
               ),
-              SizedBox(height: 10),
+              const SizedBox(height: 10),
               _items[index]['image'] != null
                   ? Image.file(
                       _items[index]['image'],
@@ -156,51 +155,50 @@ class _CRUDPageState extends State
                       fit: BoxFit.cover,
                     )
                   : Container(), // Show image if available
-              SizedBox(height: 10),
+              const SizedBox(height: 10),
               ElevatedButton(
                 onPressed: () {
                   _getImage(index); // Call image picker
                 },
-                child: Text('Pick Image'),
+                child: const Text('Pick Image'),
                 style: ElevatedButton.styleFrom(
-                  foregroundColor: Colors.white, backgroundColor: GlobalColors.mainColor, // Menyesuaikan warna teks dengan warna tombol tambah
+                  foregroundColor: Colors.white,
+                  backgroundColor: GlobalColors.mainColor, // Menyesuaikan warna teks dengan warna tombol tambah
                 ),
               ),
-              SizedBox(height: 10),
+              const SizedBox(height: 10),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
                   ElevatedButton(
-                    onPressed: () {
-                      _editItem(index);
-                    },
-                    child: Text('Edit'),
+                    onPressed: () => _editItem(index),
                     style: ElevatedButton.styleFrom(
-                      foregroundColor: Colors.white, backgroundColor: GlobalColors.mainColor, // Menyesuaikan warna teks dengan warna tombol tambah
+                      foregroundColor: Colors.white,
+                      backgroundColor: GlobalColors.mainColor, // Menyesuaikan warna teks dengan warna tombol tambah
                     ),
+                    child: const Text('Edit'),
                   ),
                   ElevatedButton(
-                    onPressed: () {
-                      _deleteItem(index);
-                    },
-                    child: Text('Delete'),
+                    onPressed: () => _deleteItem(index),
                     style: ElevatedButton.styleFrom(
-                      foregroundColor: Colors.white, backgroundColor: GlobalColors.mainColor, // Menyesuaikan warna teks dengan warna tombol tambah
+                      foregroundColor: Colors.white,
+                      backgroundColor: GlobalColors.mainColor, // Menyesuaikan warna teks dengan warna tombol tambah
                     ),
+                    child: const Text('Delete'),
                   ),
                 ],
               ),
-              SizedBox(height: 20),
-              Divider(),
+              const SizedBox(height: 20),
+              const Divider(),
             ],
           );
         },
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: _addItem,
-        child: Icon(Icons.add),
         backgroundColor: GlobalColors.mainColor,
         foregroundColor: Colors.white,
+        child: const Icon(Icons.add),
       ),
     );
   }
